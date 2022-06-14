@@ -1,6 +1,3 @@
-//Doing a Product web app, in product page to 
-//display the name, description, imageUrl, style, price, ..., ...,.....,....
-
 
 const createHTMLList = (index, title, description, targetdate) =>
 `
@@ -12,21 +9,11 @@ const createHTMLList = (index, title, description, targetdate) =>
         </tr>
 `;
 
-
-//function displayProductDetails(item)
-//{
-//    document.querySelector("#modalName").innerText = item.name;
-//    document.querySelector("#modalImg").src = item.imageUrl;
-//    document.querySelector("#modalStyle").innerText = item.style;
-//    document.querySelector("#modalPrice").innerText = item.price;
-//
-//}
-
-
 class TodoController
 {
     constructor()
     {
+        // setup URL for Dev or Prod environment
         this.domainURL_Dev = "http://localhost:8080/";
         this.domainURL_Prod = "";
         this.activeURL = this.domainURL_Dev;
@@ -34,7 +21,7 @@ class TodoController
         this.addItemAPI = this.activeURL + "todoitem/add";
         this.allItemAPI = this.activeURL + "todoitem/all";
 
-        this.todoList = [];       //create an array to store the details of product items
+        this.todoList = [];       //create an array to store the details of todo list
     }
 
     //method to add the items into the array
@@ -63,18 +50,17 @@ class TodoController
     }
 
     displayItem() {
-    // this method will fetch data from the database using REST API from Spring Boot
         let todoController = this;
         todoController.todoList = [];
 
-        //fetch data from database using the REST API endpoint from Spring Boot
+        //fetch data from db using the REST API endpoint from Spring Boot
         fetch(this.allItemAPI)
             .then((resp) => resp.json())
             .then(function(data) {
-                console.log("2. receive data")
-                console.log(data);
+//                console.log("2. receive data")
+//                console.log(data);
                 data.forEach(function (item, index) {
-
+                    // put data into temp object
                     const itemObj = {
                         id: item.todoid,
                         title: item.title,
@@ -84,33 +70,33 @@ class TodoController
                     todoController.todoList.push(itemObj);
                 });
 
-                todoController.renderProductPage();
+                todoController.showTodoPage();
             })
             .catch(function(error) {
                 console.log(error);
             });
     }
 
-// here
-    renderProductPage()
+    showTodoPage()
     {
-        let productHTMLList = [];
+        let tdList = [];
         
         for (let i=0; i<this.todoList.length; i++)
         {
             const item = this.todoList[i];            //assign the individual item to the variable
+            let tdate = new Date(Date.parse(item.targetdate));
+            const datestr = tdate.getDate().toString().padStart(2, '0') + "/" + (tdate.getMonth() + 1).toString().padStart(2, '0') + "/" + tdate.getFullYear();
+//            console.log("year " + tdate.getFullYear());
+//            console.log(tdate.getMonth() + 1);
+//            console.log(tdate.getDate());
 
-            const productHTML = createHTMLList(item.id, item.title, item.description, item.targetdate);
-
-            productHTMLList.push(productHTML);
+            const tmpHTML = createHTMLList(item.id, item.title, item.description, datestr);
+            tdList.push(tmpHTML);
         }
 
-        //Join all the elements/items in my productHTMLList array into one string, and seperate by a break
-        const pHTML = productHTMLList.join('\n');
+        const pHTML = tdList.join('\n');
         document.querySelector('#tableContent').innerHTML = pHTML; // check #row
 
 //        console.log(pHTML);
     }
-
-
-}   //End of ProductsController class
+}

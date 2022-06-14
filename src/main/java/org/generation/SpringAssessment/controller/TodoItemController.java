@@ -14,6 +14,7 @@ public class TodoItemController {
 
     final TodoItemService todoItemService;
 
+    // dependency injection here
     public TodoItemController( @Autowired TodoItemService itemService )
     {
         this.todoItemService = itemService;
