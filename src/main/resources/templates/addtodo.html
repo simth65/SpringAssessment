@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Spring Boot Project Assessment">
+    <title>Spring Boot Project Assessment</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> <!-- this is for binocular icon in card body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Josefin+Sans:wght@500&family=Lora:wght@500&family=Noto+Serif:wght@700&family=PT+Serif+Caption&family=Sacramento&family=Signika+Negative:wght@600&family=Space+Mono&display=swap&family=Fredoka+One&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+
+<div th:insert="fragments/navbar.html :: navbar"></div>
+
+<!-- start of content -->
+<div class="container-fluid d-flex flex-column mt-5">
+    <form id="newTodoItem">
+        <H1>New TODO item</H1>
+        <div class="mb-3">
+            <label class="form-label">Title</label>
+            <input type="text" class="form-control" id="newtitle">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea class="form-control" id="newdescription"></textarea>
+        </div>
+        <div class="mb-3 form-check">
+            <label class="form-check-label" >Target Date</label>
+            <input type="date" class="form-control" id="newdate">
+
+            <div class="container">
+                <div class="row">
+                    <div class='col-sm-6'>
+                        <div class="form-group">
+                            <div class='input-group date' id='datetimepicker2'>
+                                <input type='text' class="form-control" />
+                                <span class="input-group-addon">
+               <span class="glyphicon glyphicon-calendar"></span>
+               </span>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+         $(function () {
+             $('#datetimepicker2').datetimepicker({
+                 locale: 'ru'
+             });
+         });
+      </script>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+</div> <!-- container fluid -->
+
+<script src="js/todoController.js"></script>
+<script src="js/todoForm.js"></script>
+
+</body>
+</html>
